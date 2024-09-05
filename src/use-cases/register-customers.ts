@@ -7,7 +7,6 @@ interface RegisterCustormesRequest{
   numberPhone: string
   email: string   
   gender: string
-  date_of_birth: Date
 }
 
 interface RegisterCustormesResponse{
@@ -19,7 +18,6 @@ export class RegisterCustormesUseCase{
 
     async execute({ 
         cpf, 
-        date_of_birth, 
         email, 
         gender, 
         name, 
@@ -28,7 +26,6 @@ export class RegisterCustormesUseCase{
     
         const customers = await this.customersRepository.create({
             cpf,
-            date_of_birth, 
             email, 
             gender, 
             name, 

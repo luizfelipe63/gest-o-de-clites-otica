@@ -14,12 +14,12 @@ datasource db {
 }
 
 model customers {
-  id            String   @id @default(uuid())
-  cpf           String
-  name          String
-  numberPhone   String
-  email         String   @unique
-  gender        String
-  date_of_birth DateTime
-  created_at    DateTime @default(now())
+  id          String   @id @default(uuid())
+  cpf         String
+  name        String
+  numberPhone String
+  email       String   @unique
+  gender      String
+  // date_of_birth DateTime
+  created_at  DateTime @default(now())
 }
