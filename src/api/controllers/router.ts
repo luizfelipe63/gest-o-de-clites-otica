@@ -1,11 +1,11 @@
-import express from 'express';
-import { registerCustomer } from './register-customer'
+import { Router } from 'express';
+import { registerCustomer } from './create-customer'
+import { readCustomer } from './read-customer';
 
-const router = express.Router();
+export const router = Router()
 
-router.post('/', registerCustomer)
-
-export default router
+router.post('/customer', registerCustomer)
+router.get('/client', readCustomer)
 
 
 
