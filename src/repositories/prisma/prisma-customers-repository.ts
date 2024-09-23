@@ -20,4 +20,28 @@ export class PrismaCustormersRepository implements CustomersRepository {
 
 		return customer
 	}
+
+	async update(data: customers){
+		const customer = await prisma.customers.update({
+			where:{
+				id: data.id
+			},
+			data:{
+				name: data.name,
+				email: data.email
+			}
+		})
+
+		return customer
+	}
+
+	async delete(id: string) {
+		const customers = await prisma.customers.delete({
+			where:{
+				id
+			}
+		});
+
+		return customers;
+	}
 }
