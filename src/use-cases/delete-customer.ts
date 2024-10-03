@@ -1,6 +1,6 @@
 import { customers } from "@prisma/client"
 import { CustomersRepository } from "../repositories/customers-repository"
-import { error } from "console"
+import { CustomerNotFound } from "./errors/customer-not-found-error"
 
 interface DeleteCustormerRequest{
     customerId: string
@@ -20,7 +20,7 @@ export class deleteCustormerUseCase{
         const customers = await this.customersRepository.delete(customerId)
 
         if(!customers){
-            throw error("não existe")
+            throw new CustomerNotFound()
         }
 
         return {

@@ -1,14 +1,14 @@
 import { z } from "zod"
-import { PrismaCustormersRepository } from "../../repositories/prisma/prisma-customers-repository"
-import { getCustormerUseCase } from "../../use-cases/get-customer"
+import { PrismaCustormersRepository } from "../../../repositories/prisma/prisma-customers-repository"
+import { getCustormerUseCase } from "../../../use-cases/get-customer"
 import { Request, Response } from "express"
 
 export async function readCustomer(req: Request, res: Response){
-    const createCustomerBodySchema = z.object({
+    const readCustomerBodySchema = z.object({
         customerId: z.string()
     })
 
-    const {customerId} = createCustomerBodySchema.parse(req.body)
+    const {customerId} = readCustomerBodySchema.parse(req.params)
 
     const prismaCustomersRepository = new PrismaCustormersRepository()
     const getCustomerUseCase = new getCustormerUseCase(prismaCustomersRepository)
