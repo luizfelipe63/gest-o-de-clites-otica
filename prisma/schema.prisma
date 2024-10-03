@@ -15,7 +15,7 @@ datasource db {
 
 model customers {
   id          String   @id @default(uuid())
-  cpf         String
+  cpf         String   @unique
   name        String
   numberPhone String
   email       String   @unique

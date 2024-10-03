@@ -21,15 +21,22 @@ export class PrismaCustormersRepository implements CustomersRepository {
 		return customer
 	}
 
-	async update(data: customers){
-		const customer = await prisma.customers.update({
+	async findyByCpf(cpf: string) {
+		const customer = await prisma.customers.findUnique({
 			where:{
-				id: data.id
-			},
-			data:{
-				name: data.name,
-				email: data.email
+				cpf
 			}
+		})
+
+		return customer
+	}
+
+	async update(id: string, data: Prisma.customersUpdateInput){
+		const customer = await prisma.customers.update({
+			where: {
+				id
+			},
+			data
 		})
 
 		return customer
