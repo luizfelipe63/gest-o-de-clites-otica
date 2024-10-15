@@ -1,5 +1,6 @@
 import { customers } from "@prisma/client"
 import { CustomersRepository } from "../repositories/customers-repository"
+import { CustomerNotFound } from "./errors/customer-not-found-error"
 
 interface UpdateCustormesRequest{
     id: string
@@ -33,6 +34,10 @@ export class updateCustormerUseCase{
             name, 
             numberPhone,
         })
+
+        if(!customers){
+            throw new CustomerNotFound()
+        }
 
         return {
             customers

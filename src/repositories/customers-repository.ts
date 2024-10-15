@@ -5,5 +5,5 @@ export interface CustomersRepository{
   findyById(id: string): Promise<customers | null>
   findyByCpf(cpf: string): Promise<customers | null>
   delete(id: string): Promise<customers | null>
-  update(id:string, data: Prisma.customersUpdateInput): Promise<customers>
+  update(id:string, data: Prisma.customersUpdateInput): Promise<customers | null>
 }
