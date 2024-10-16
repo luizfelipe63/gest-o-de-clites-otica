@@ -12,7 +12,7 @@ describe("create customer", () => {
 		sut = new RegisterCustormesUseCase(customerRepository)
 	})
 
-	it("it should be possible to create a client ", async () => {
+	it("should be possible to create a client ", async () => {
 		const { customers } = await sut.execute({
 			cpf: "111-111-111-67",
 			email: "johdoe@gmail.com",
@@ -24,7 +24,7 @@ describe("create customer", () => {
 		expect(customers.id).toEqual(expect.any(String))
 	});
 
-	it("It is not possible to create a customer with the same CPF", async () => {
+	it("is not possible to create a customer with the same CPF", async () => {
 		const cpf = "111-111-111-67"
 
 		await sut.execute({
