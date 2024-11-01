@@ -23,16 +23,14 @@ export class InMemoryCustormersRepository implements CustomersRepository{
     }
 
     async delete(id: string) {
-        const customer = this.customers.find((item) => item.id == id)
+        const itemIndex = this.customers.findIndex((item) => item.id === id)
 
-        if(customer){
-            const index = this.customers.indexOf(customer)
-            this.customers.slice(index, 1)
+        if (itemIndex === -1) {
+            return null; 
         }
 
-        if(!customer){
-            return null
-        }
+        const customer = this.customers[itemIndex];
+        this.customers.splice(itemIndex, 1)
 
         return customer
     }
@@ -58,27 +56,28 @@ export class InMemoryCustormersRepository implements CustomersRepository{
         return customer
     }
 
-    async update(id: string, data: Prisma.customersUpdateInput){
+    async update(id: string, data: Prisma.customersUpdateInput) {
         let updatedCustomer = null;
-
-        const customer = this.customers.map((item) => {
-            if(item.id == id){
+    
+        this.customers.map((item) => {
+            if (item.id === id) {
                 updatedCustomer = {
                     ...item,
-                    cpf: data.cpf,
-                    email: data.email,
-                    gender: data.gender,
-                    name: data.name,
-                    numberPhone: data.numberPhone
-                }
+                    cpf: data.cpf ?? item.cpf,
+                    email: data.email ?? item.email,
+                    gender: data.gender ?? item.gender,
+                    name: data.name ?? item.name,
+                    numberPhone: data.numberPhone ?? item.numberPhone,
+                };
+                return updatedCustomer;
             }
-            return item 
-        }).find(item => item.id === id)
-
-        if(!customer){
-            return null
+            return item;
+        });
+    
+        if (!updatedCustomer) {
+            return null;
         }
 
-        return customer
+        return updatedCustomer;
     }
 }
