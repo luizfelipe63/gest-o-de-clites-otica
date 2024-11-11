@@ -6,10 +6,10 @@ import { updateCustomer } from './update-customer';
 
 export const router = Router()
 
-router.post('/register-customer', registerCustomer)
+router.post('/customer/new', registerCustomer)
 router.get('/customer/:customerId', readCustomer)
-router.delete('/delete-customer', deleteCustomer)
-router.put('/update-customer', updateCustomer)
+router.delete('/customer/delete', deleteCustomer)
+router.put('/customer/update', updateCustomer)
 
 
 
