@@ -4,6 +4,6 @@ import { defineConfig} from 'vitest/config'
 
 export default defineConfig({
     test: {
-        environmentMatchGlobs: [['src/api/controllers/**', 'prisma']],
+        environmentMatchGlobs: [['src/api/controllers/customers/**', 'prisma']],
     },
 })
