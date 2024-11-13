@@ -1,14 +1,14 @@
 import { describe, it, expect, beforeEach} from "vitest";
 import { InMemoryCustormersRepository } from "../repositories/in-memory/in-memory-customer-repository";
-import { deleteCustormerUseCase } from "./delete-customer";
+import { DeleteCustomerUseCase } from "./delete-customer";
 
 let customerRepository: InMemoryCustormersRepository
-let sut: deleteCustormerUseCase
+let sut: DeleteCustomerUseCase
 
 describe("delete customer", () => {
 	beforeEach(() => {
 		customerRepository = new InMemoryCustormersRepository
-		sut = new deleteCustormerUseCase(customerRepository)
+		sut = new DeleteCustomerUseCase(customerRepository)
 	})
 
 	it("should be able to delete customer", async () => {

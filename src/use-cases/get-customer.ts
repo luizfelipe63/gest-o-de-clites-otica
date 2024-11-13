@@ -2,20 +2,20 @@ import { customers } from "@prisma/client"
 import { CustomersRepository } from "../repositories/customers-repository"
 import { CustomerNotFound } from "./errors/customer-not-found-error"
 
-interface GetCustormerRequest{
+interface GetCustomerRequest{
     customerId: string
 }
 
-interface GetCustormerResponse{
+interface GetCustomerResponse{
     customers: customers    
 }
 
-export class getCustormerUseCase{
+export class GetCustomerUseCase{
     constructor(private customersRepository: CustomersRepository){}
 
     async execute({ 
         customerId
-    }: GetCustormerRequest): Promise<GetCustormerResponse> {
+    }: GetCustomerRequest): Promise<GetCustomerResponse> {
     
         const customers = await this.customersRepository.findyById(customerId)
 

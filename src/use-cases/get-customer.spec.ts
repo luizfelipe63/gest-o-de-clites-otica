@@ -1,15 +1,15 @@
 import { describe, it, expect, beforeEach} from "vitest";
 import { InMemoryCustormersRepository } from "../repositories/in-memory/in-memory-customer-repository";
-import { getCustormerUseCase } from "./get-customer";
+import { GetCustomerUseCase } from "./get-customer";
 import { CustomerNotFound } from "./errors/customer-not-found-error";
 
 let customerRepository: InMemoryCustormersRepository
-let sut: getCustormerUseCase
+let sut: GetCustomerUseCase
 
 describe("get by customer", () => {
 	beforeEach(() => {
 		customerRepository = new InMemoryCustormersRepository
-		sut = new getCustormerUseCase(customerRepository)
+		sut = new GetCustomerUseCase(customerRepository)
 	})
 
 	it("should be able to get customer profile", async () => {

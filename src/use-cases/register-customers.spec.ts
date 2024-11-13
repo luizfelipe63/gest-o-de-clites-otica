@@ -1,15 +1,15 @@
 import { describe, it, expect, beforeEach} from "vitest";
 import { InMemoryCustormersRepository } from "../repositories/in-memory/in-memory-customer-repository";
-import { RegisterCustormesUseCase } from "./register-customers";
+import { RegisterCustomerUseCase } from "./register-customers";
 import { CustomerAlreadyExistsError } from "./errors/customer-already-exists-error";
 
 let customerRepository: InMemoryCustormersRepository
-let sut: RegisterCustormesUseCase
+let sut: RegisterCustomerUseCase
 
 describe("create customer", () => {
 	beforeEach(() => {
 		customerRepository = new InMemoryCustormersRepository
-		sut = new RegisterCustormesUseCase(customerRepository)
+		sut = new RegisterCustomerUseCase(customerRepository)
 	})
 
 	it("should be possible to create a client ", async () => {

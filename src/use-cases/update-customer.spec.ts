@@ -1,14 +1,14 @@
 import { describe, it, expect, beforeEach} from "vitest";
 import { InMemoryCustormersRepository } from "../repositories/in-memory/in-memory-customer-repository";
-import { updateCustormerUseCase } from "./update-customer";
+import { UpdateCustomerUseCase } from "./update-customer";
 
 let customerRepository: InMemoryCustormersRepository
-let sut: updateCustormerUseCase
+let sut: UpdateCustomerUseCase
 
 describe("update customer", () => {
 	beforeEach(() => {
 		customerRepository = new InMemoryCustormersRepository
-		sut = new updateCustormerUseCase(customerRepository)
+		sut = new UpdateCustomerUseCase(customerRepository)
 	})
 
 	it("should be able to update customer", async () => {

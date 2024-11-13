@@ -2,7 +2,7 @@ import { customers } from "@prisma/client"
 import { CustomersRepository } from "../repositories/customers-repository"
 import { CustomerNotFound } from "./errors/customer-not-found-error"
 
-interface UpdateCustormesRequest{
+interface UpdateCustomerRequest{
     id: string
     cpf?: string
     name?: string
@@ -11,11 +11,11 @@ interface UpdateCustormesRequest{
     gender?: string
 }
 
-interface UpdateCustormesResponse{
+interface UpdateCustomerResponse{
     customers: customers  
 }
 
-export class updateCustormerUseCase{
+export class UpdateCustomerUseCase{
     constructor(private customersRepository: CustomersRepository){}
 
     async execute({ 
@@ -25,7 +25,7 @@ export class updateCustormerUseCase{
         cpf,
         gender,
         numberPhone
-    }: UpdateCustormesRequest): Promise<UpdateCustormesResponse> {
+    }: UpdateCustomerRequest): Promise<UpdateCustomerResponse> {
 
         const customers = await this.customersRepository.update(id, {
             cpf,

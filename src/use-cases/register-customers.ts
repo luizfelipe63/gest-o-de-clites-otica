@@ -2,7 +2,7 @@ import { customers } from "@prisma/client"
 import { CustomersRepository } from "../repositories/customers-repository"
 import { CustomerAlreadyExistsError } from "./errors/customer-already-exists-error"
 
-interface RegisterCustormesRequest{
+interface RegisterCustomerRequest{
   cpf : string
   name : string
   numberPhone: string
@@ -10,12 +10,12 @@ interface RegisterCustormesRequest{
   gender: string
 }
 
-interface RegisterCustormesResponse{
+interface RegisterCustomerResponse{
     customers: customers    
 }
 
-export class RegisterCustormesUseCase{
-    constructor(private customersRepository: CustomersRepository){}
+export class RegisterCustomerUseCase{
+    constructor(private customerRepository: CustomersRepository){}
 
     async execute({ 
         cpf, 
@@ -23,15 +23,15 @@ export class RegisterCustormesUseCase{
         gender, 
         name, 
         numberPhone
-    }: RegisterCustormesRequest): Promise<RegisterCustormesResponse> {
+    }: RegisterCustomerRequest): Promise<RegisterCustomerResponse> {
 
-        const customerWithExistingCpf = await this.customersRepository.findyByCpf(cpf)
+        const customerWithExistingCpf = await this.customerRepository.findyByCpf(cpf)
 
         if(customerWithExistingCpf){
             throw new CustomerAlreadyExistsError()
         }
     
-        const customers = await this.customersRepository.create({
+        const customers = await this.customerRepository.create({
             cpf,
             email, 
             gender, 
