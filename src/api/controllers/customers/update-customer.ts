@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { z } from "zod";
-import { updateCustormerUseCase } from "../../../use-cases/update-customer";
-import { PrismaCustormersRepository } from "../../../repositories/prisma/prisma-customers-repository";
+import { makeUpdateCustomerUseCase } from "../../../use-cases/factories/make-update-customer-use-case";
+import { CustomerNotFound } from "../../../use-cases/errors/customer-not-found-error";
 
 export async function updateCustomer(req: Request, res: Response){
 
-    const upadateCustomerBodySchema = z.object({
+    const updateCustomerBodySchema = z.object({
         id: z.string(),
         cpf: z.string().optional(),
         email: z.string().optional(),
@@ -21,20 +21,27 @@ export async function updateCustomer(req: Request, res: Response){
         cpf,
         gender,
         numberPhone
-} = upadateCustomerBodySchema.parse(req.body)
+} = updateCustomerBodySchema.parse(req.body)
 
-    const prismaCustomersRepository = new PrismaCustormersRepository()
-    const updateCustomersUseCase = new updateCustormerUseCase(prismaCustomersRepository)
+    try{
+        const updateCustomersUseCase = makeUpdateCustomerUseCase()
 
-    await updateCustomersUseCase.execute({
-        id,
-        email,
-        name,
-        cpf,
-        gender,
-        numberPhone
-    })
+        const {customers} = await updateCustomersUseCase.execute({
+            id,
+            email,
+            name,
+            cpf,
+            gender,
+            numberPhone
+        })
 
-    return res.status(201).send()
+        return res.status(200).send(customers)
+    }catch(err){
+        if(err instanceof CustomerNotFound){
+            return res.status(409).send({
+                message: err.message
+            })
+        }
+    }
 
 }

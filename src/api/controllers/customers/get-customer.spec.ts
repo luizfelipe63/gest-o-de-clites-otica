@@ -13,7 +13,7 @@ describe('Get customer (e2e)', () => {
         numberPhone: "61994502167"
     })
 
-    const customerId = createCustomer.body.customers.id
+    const customerId = createCustomer.body.id
 
     const response = await request(app).get(`/customer/${customerId}`)
 
