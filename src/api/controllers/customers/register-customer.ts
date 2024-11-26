@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { z } from "zod";
-import { RegisterCustormesUseCase } from "../../../use-cases/register-customers";
-import { PrismaCustormersRepository } from "../../../repositories/prisma/prisma-customers-repository";
+import { makeRegisterCustomerUseCase } from "../../../use-cases/factories/make-register-customer.use-case";
 import { CustomerAlreadyExistsError } from "../../../use-cases/errors/customer-already-exists-error";
 
 export async function registerCustomer(req: Request, res: Response){
@@ -22,11 +21,9 @@ export async function registerCustomer(req: Request, res: Response){
     } = registerCustomerBodySchema.parse(req.body)
 
     try{
-        const prismaCustomersRepository = new PrismaCustormersRepository()
-        const registerCustomersUseCase = new RegisterCustormesUseCase(prismaCustomersRepository)
+       const registerCustomerUseCase = makeRegisterCustomerUseCase()
 
-        
-        await registerCustomersUseCase.execute({
+       const {customers} =  await registerCustomerUseCase.execute({
             cpf,
             email,
             gender,
@@ -34,15 +31,14 @@ export async function registerCustomer(req: Request, res: Response){
             numberPhone
         })
 
+        return res.status(201).send(customers)
+
     }catch(err){
         if (err instanceof CustomerAlreadyExistsError) {
             return res.status(409).send({
               message: err.message,
             })
-          }
-          return err
     }
-    
-    return res.status(201).send()
+}
 
 }
