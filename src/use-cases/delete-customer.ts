@@ -1,4 +1,4 @@
-import { customers } from "@prisma/client"
+import { Customer } from "@prisma/client"
 import { CustomersRepository } from "../repositories/customers-repository"
 import { CustomerNotFound } from "./errors/customer-not-found-error"
 
@@ -7,7 +7,7 @@ interface DeleteCustomerRequest{
 }
 
 interface DeleteCustomerResponse{
-    customers: customers    
+    customer: Customer    
 }
 
 export class DeleteCustomerUseCase{
@@ -17,14 +17,14 @@ export class DeleteCustomerUseCase{
         customerId
     }: DeleteCustomerRequest): Promise<DeleteCustomerResponse> {
     
-        const customers = await this.customersRepository.delete(customerId)
+        const customer = await this.customersRepository.delete(customerId)
 
-        if(!customers){
+        if(!customer){
             throw new CustomerNotFound()
         }
 
         return {
-            customers
+            customer
         }
     }
 }

@@ -1,4 +1,4 @@
-import { customers } from "@prisma/client"
+import { Customer } from "@prisma/client"
 import { CustomersRepository } from "../repositories/customers-repository"
 import { CustomerNotFound } from "./errors/customer-not-found-error"
 
@@ -12,7 +12,7 @@ interface UpdateCustomerRequest{
 }
 
 interface UpdateCustomerResponse{
-    customers: customers  
+    customer: Customer
 }
 
 export class UpdateCustomerUseCase{
@@ -27,7 +27,7 @@ export class UpdateCustomerUseCase{
         numberPhone
     }: UpdateCustomerRequest): Promise<UpdateCustomerResponse> {
 
-        const customers = await this.customersRepository.update(id, {
+        const customer = await this.customersRepository.update(id, {
             cpf,
             email, 
             gender, 
@@ -35,12 +35,12 @@ export class UpdateCustomerUseCase{
             numberPhone,
         })
 
-        if(!customers){
+        if(!customer){
             throw new CustomerNotFound()
         }
 
         return {
-            customers
+            customer
         }
     }
 }

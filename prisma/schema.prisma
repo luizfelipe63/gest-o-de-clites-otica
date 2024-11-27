@@ -13,13 +13,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model customers {
+model Customer {
   id          String   @id @default(uuid())
   cpf         String   @unique
   name        String
   numberPhone String
   email       String   @unique
   gender      String
-  // date_of_birth DateTime
+  birth_data  DateTime
   created_at  DateTime @default(now())
+
+  @@map("customers")
 }

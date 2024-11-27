@@ -10,7 +10,8 @@ describe('Get customer (e2e)', () => {
         email: "johdoe@gmail.com",
         gender: "M",
         name: "Joh Doe",
-        numberPhone: "61994502167"
+        numberPhone: "61994502167",
+        birth_data: new Date("2003-08-13")
     })
 
     const customerId = createCustomer.body.id
@@ -18,7 +19,7 @@ describe('Get customer (e2e)', () => {
     const response = await request(app).get(`/customer/${customerId}`)
 
     expect(response.statusCode).toEqual(200)
-    expect(response.body.customers).toEqual(expect.objectContaining({
+    expect(response.body.customer).toEqual(expect.objectContaining({
         email: "johdoe@gmail.com"
     }))
   })

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { z } from "zod";
+import { date, z } from "zod";
 import { makeRegisterCustomerUseCase } from "../../../use-cases/factories/make-register-customer.use-case";
 import { CustomerAlreadyExistsError } from "../../../use-cases/errors/customer-already-exists-error";
 
@@ -9,7 +9,8 @@ export async function registerCustomer(req: Request, res: Response){
         email: z.string(),
         gender: z.enum(['M', 'F']),
         name: z.string(),
-        numberPhone: z.string()
+        numberPhone: z.string(),
+        birth_data: z.coerce.date()
     })
 
     const {
@@ -17,21 +18,23 @@ export async function registerCustomer(req: Request, res: Response){
         email, 
         gender, 
         name, 
-        numberPhone
+        numberPhone,
+        birth_data
     } = registerCustomerBodySchema.parse(req.body)
 
     try{
        const registerCustomerUseCase = makeRegisterCustomerUseCase()
 
-       const {customers} =  await registerCustomerUseCase.execute({
+       const {customer} =  await registerCustomerUseCase.execute({
             cpf,
             email,
             gender,
             name,
-            numberPhone
+            numberPhone,
+            birth_data
         })
 
-        return res.status(201).send(customers)
+        return res.status(201).send(customer)
 
     }catch(err){
         if (err instanceof CustomerAlreadyExistsError) {

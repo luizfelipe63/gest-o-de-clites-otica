@@ -10,7 +10,8 @@ describe('Update customer (e2e)', () => {
         email: "johdoe@gmail.com",
         gender: "M",
         name: "Joh Doe",
-        numberPhone: "61994502167"
+        numberPhone: "61994502167",
+        birth_data: new Date("2003-08-13")
       })
   
       const id = createCustomer.body.id

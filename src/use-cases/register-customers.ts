@@ -1,4 +1,4 @@
-import { customers } from "@prisma/client"
+import { Customer } from "@prisma/client"
 import { CustomersRepository } from "../repositories/customers-repository"
 import { CustomerAlreadyExistsError } from "./errors/customer-already-exists-error"
 
@@ -8,10 +8,11 @@ interface RegisterCustomerRequest{
   numberPhone: string
   email: string   
   gender: string
+  birth_data: Date
 }
 
 interface RegisterCustomerResponse{
-    customers: customers    
+    customer: Customer   
 }
 
 export class RegisterCustomerUseCase{
@@ -22,6 +23,7 @@ export class RegisterCustomerUseCase{
         email, 
         gender, 
         name, 
+        birth_data,
         numberPhone
     }: RegisterCustomerRequest): Promise<RegisterCustomerResponse> {
 
@@ -31,16 +33,17 @@ export class RegisterCustomerUseCase{
             throw new CustomerAlreadyExistsError()
         }
     
-        const customers = await this.customerRepository.create({
+        const customer = await this.customerRepository.create({
             cpf,
             email, 
             gender, 
             name, 
             numberPhone,
+            birth_data
         })
 
         return {
-            customers
+            customer
         }
     }
 }

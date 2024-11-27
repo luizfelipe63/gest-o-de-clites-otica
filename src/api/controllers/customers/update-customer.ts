@@ -26,7 +26,7 @@ export async function updateCustomer(req: Request, res: Response){
     try{
         const updateCustomersUseCase = makeUpdateCustomerUseCase()
 
-        const {customers} = await updateCustomersUseCase.execute({
+        const {customer} = await updateCustomersUseCase.execute({
             id,
             email,
             name,
@@ -35,7 +35,7 @@ export async function updateCustomer(req: Request, res: Response){
             numberPhone
         })
 
-        return res.status(200).send(customers)
+        return res.status(200).send(customer)
     }catch(err){
         if(err instanceof CustomerNotFound){
             return res.status(409).send({

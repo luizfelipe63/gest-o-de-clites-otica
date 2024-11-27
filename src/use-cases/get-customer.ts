@@ -1,4 +1,4 @@
-import { customers } from "@prisma/client"
+import { Customer} from "@prisma/client"
 import { CustomersRepository } from "../repositories/customers-repository"
 import { CustomerNotFound } from "./errors/customer-not-found-error"
 
@@ -7,7 +7,7 @@ interface GetCustomerRequest{
 }
 
 interface GetCustomerResponse{
-    customers: customers    
+    customer: Customer    
 }
 
 export class GetCustomerUseCase{
@@ -17,14 +17,14 @@ export class GetCustomerUseCase{
         customerId
     }: GetCustomerRequest): Promise<GetCustomerResponse> {
     
-        const customers = await this.customersRepository.findyById(customerId)
+        const customer = await this.customersRepository.findyById(customerId)
 
-        if(!customers){
+        if(!customer){
             throw new CustomerNotFound()
         }
 
         return {
-            customers
+            customer
         }
     }
 }

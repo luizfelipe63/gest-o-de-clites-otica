@@ -17,13 +17,14 @@ describe("delete customer", () => {
 			email: "johdoe@gmail.com",
 			gender: "M",
 			name: "Joh Doe",
-			numberPhone: "(61) 99550-2167"
+			numberPhone: "(61) 99550-2167",
+			birth_data: "2003-08-13"
 		})
 
-        const { customers } = await sut.execute({
+        await sut.execute({
             customerId: createCustomer.id
         })
-
+		
 		expect(customerRepository.customers).toHaveLength(0)
 	});
 });

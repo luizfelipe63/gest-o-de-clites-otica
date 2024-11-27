@@ -1,9 +1,9 @@
-import { customers, Prisma } from '@prisma/client'
+import { Customer, Prisma } from '@prisma/client'
 
 export interface CustomersRepository{
-  create(data: Prisma.customersCreateInput): Promise<customers>
-  findyById(id: string): Promise<customers | null>
-  findyByCpf(cpf: string): Promise<customers | null>
-  delete(id: string): Promise<customers | null>
-  update(id:string, data: Prisma.customersUpdateInput): Promise<customers | null>
+  create(data: Prisma.CustomerCreateInput): Promise<Customer>
+  findyById(id: string): Promise<Customer | null>
+  findyByCpf(cpf: string): Promise<Customer | null>
+  delete(id: string): Promise<Customer | null>
+  update(id:string, data: Prisma.CustomerUpdateInput): Promise<Customer | null>
 }

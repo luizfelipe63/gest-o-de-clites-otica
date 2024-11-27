@@ -1,11 +1,11 @@
-import { customers, Prisma } from "@prisma/client";
+import { Customer, Prisma } from "@prisma/client";
 import { CustomersRepository } from "../customers-repository";
 
 
 export class InMemoryCustormersRepository implements CustomersRepository{
-    public customers: customers[] = []
+    public customers: Customer[] = []
 
-   async create(data: Prisma.customersCreateInput){
+   async create(data: Prisma.CustomerCreateInput){
 
     const customer = {
         id: 'customer-1',
@@ -14,6 +14,7 @@ export class InMemoryCustormersRepository implements CustomersRepository{
         numberPhone: data.numberPhone,
         email: data.email,
         gender: data.gender,
+        birth_data: new Date("2003-08-13"),
         created_at: new Date()
     }
 
@@ -56,7 +57,7 @@ export class InMemoryCustormersRepository implements CustomersRepository{
         return customer
     }
 
-    async update(id: string, data: Prisma.customersUpdateInput) {
+    async update(id: string, data: Prisma.CustomerUpdateInput) {
         let updatedCustomer = null;
     
         this.customers.map((item) => {
@@ -68,6 +69,7 @@ export class InMemoryCustormersRepository implements CustomersRepository{
                     gender: data.gender ?? item.gender,
                     name: data.name ?? item.name,
                     numberPhone: data.numberPhone ?? item.numberPhone,
+                    birth_data: data.birth_data ?? item.birth_data
                 };
                 return updatedCustomer;
             }

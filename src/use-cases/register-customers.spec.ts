@@ -13,15 +13,16 @@ describe("create customer", () => {
 	})
 
 	it("should be possible to create a client ", async () => {
-		const { customers } = await sut.execute({
+		const { customer } = await sut.execute({
 			cpf: "111-111-111-67",
 			email: "johdoe@gmail.com",
 			gender: "M",
 			name: "Joh Doe",
-			numberPhone: "(61) 99550-2167"
+			numberPhone: "(61) 99550-2167",
+			birth_data: new Date("2003-08-13")
 		})
 		
-		expect(customers.id).toEqual(expect.any(String))
+		expect(customer.id).toEqual(expect.any(String))
 	});
 
 	it("is not possible to create a customer with the same CPF", async () => {
@@ -32,7 +33,8 @@ describe("create customer", () => {
 			email: "johdoe@gmail.com",
 			gender: "M",
 			name: "Joh Doe",
-			numberPhone: "(61) 99550-2167"
+			numberPhone: "(61) 99550-2167",
+			birth_data: new Date("2003-08-13")
 		})
 
 		await expect(() => sut.execute({
@@ -40,7 +42,8 @@ describe("create customer", () => {
 			email: "johdoe@gmail.com",
 			gender: "M",
 			name: "Joh Doe",
-			numberPhone: "(61) 99550-2167"
+			numberPhone: "(61) 99550-2167",
+			birth_data: new Date("2003-08-13")
 		})).rejects.toBeInstanceOf(CustomerAlreadyExistsError)
 
 	})

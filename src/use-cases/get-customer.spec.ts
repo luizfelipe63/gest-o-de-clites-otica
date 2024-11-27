@@ -18,14 +18,15 @@ describe("get by customer", () => {
 			email: "johdoe@gmail.com",
 			gender: "M",
 			name: "Joh Doe",
-			numberPhone: "(61) 99550-2167"
+			numberPhone: "(61) 99550-2167",
+			birth_data: new Date("2003-08-13")
 		})
 
-        const { customers } = await sut.execute({
+        const { customer } = await sut.execute({
             customerId: createCustomer.id
         })
 		
-		expect(customers.name).toEqual("Joh Doe")
+		expect(customer.name).toEqual("Joh Doe")
 	});
 
     it("should not be able to get customer profile with wrong id", async () => {

@@ -3,16 +3,16 @@ import { CustomersRepository } from "../customers-repository";
 import { prisma } from "../../lib/prisma";
 
 export class PrismaCustormersRepository implements CustomersRepository {
-	async create(data: Prisma.customersCreateInput) {
-		const customers = await prisma.customers.create({
+	async create(data: Prisma.CustomerCreateInput) {
+		const customer = await prisma.customer.create({
 			data,
 		});
 
-		return customers;
+		return customer;
 	}
 
 	async findyById(id: string) {
-		const customer = await prisma.customers.findUnique({
+		const customer = await prisma.customer.findUnique({
 			where:{
 				id
 			}
@@ -22,7 +22,7 @@ export class PrismaCustormersRepository implements CustomersRepository {
 	}
 
 	async findyByCpf(cpf: string) {
-		const customer = await prisma.customers.findUnique({
+		const customer = await prisma.customer.findUnique({
 			where:{
 				cpf
 			}
@@ -31,8 +31,8 @@ export class PrismaCustormersRepository implements CustomersRepository {
 		return customer
 	}
 
-	async update(id: string, data: Prisma.customersUpdateInput){
-		const customer = await prisma.customers.update({
+	async update(id: string, data: Prisma.CustomerUpdateInput){
+		const customer = await prisma.customer.update({
 			where: {
 				id
 			},
@@ -43,12 +43,12 @@ export class PrismaCustormersRepository implements CustomersRepository {
 	}
 
 	async delete(id: string) {
-		const customers = await prisma.customers.delete({
+		const customer = await prisma.customer.delete({
 			where:{
 				id
 			}
 		});
 
-		return customers;
+		return customer;
 	}
 }
