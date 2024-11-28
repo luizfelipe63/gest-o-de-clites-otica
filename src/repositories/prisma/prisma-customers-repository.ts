@@ -31,6 +31,17 @@ export class PrismaCustormersRepository implements CustomersRepository {
 		return customer
 	}
 
+	async findMany() {
+		const customer = await prisma.customer.findMany({
+			orderBy:{
+				id: "asc"
+			},
+			take: 5
+		})
+
+		return customer
+	}
+
 	async update(id: string, data: Prisma.CustomerUpdateInput){
 		const customer = await prisma.customer.update({
 			where: {
