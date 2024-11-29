@@ -1,14 +1,14 @@
 import { Customer} from "@prisma/client"
 import { CustomersRepository } from "../repositories/customers-repository"
 
-interface FetchCustomerResponse{
+interface ListCustomerResponse{
     customer: Customer[]
 }
 
-export class FetchCustomerUseCase{
+export class ListCustomerUseCase{
     constructor(private customersRepository: CustomersRepository){}
 
-    async execute(): Promise<FetchCustomerResponse> {
+    async execute(): Promise<ListCustomerResponse> {
     
         const customer = await this.customersRepository.findMany()
 
