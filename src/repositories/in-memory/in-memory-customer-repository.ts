@@ -57,6 +57,13 @@ export class InMemoryCustormersRepository implements CustomersRepository{
         return customer
     }
 
+    async findMany() {
+        const customer = this.customers
+
+        return customer
+    }
+
+
     async update(id: string, data: Prisma.CustomerUpdateInput) {
         let updatedCustomer = null;
     
